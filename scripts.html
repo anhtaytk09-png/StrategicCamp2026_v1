@@ -97,8 +97,56 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Saving data:", data);
     alert("Dữ liệu đang được lưu vào Google Sheets...");
   }
-});
 
-// Example: Trigger help update on some action
-// updateHelp(1);
+  // Load Mock Data into UI
+  window.loadMockData = function() {
+    google.script.run.withSuccessHandler(function(data) {
+      // Step 1: Evaluation
+      const evalBody = document.getElementById('evaluation-body');
+      evalBody.innerHTML = data.evaluation.map(item => `
+        <tr class="glass-row">
+          <td><input type="text" value="${item.goal}" class="input-minimal"></td>
+          <td><input type="text" value="${item.owner}" class="input-minimal"></td>
+          <td><input type="number" value="${item.target}" class="input-minimal" oninput="calculateProgress(this)"></td>
+          <td><input type="number" value="${item.actual}" class="input-minimal" oninput="calculateProgress(this)"></td>
+          <td class="percentage-cell">${((item.actual/item.target)*100).toFixed(1)}%</td>
+          <td><span class="status-badge ${item.actual >= item.target ? 'done' : 'near'}">${item.actual >= item.target ? 'Hoàn thành' : 'Gần đạt'}</span></td>
+        </tr>
+      `).join('');
+
+      // Step 2: SSK
+      document.getElementById('start-list').innerHTML = data.ssk.start.map(s => `<li>${s}</li>`).join('');
+      document.getElementById('stop-list').innerHTML = data.ssk.stop.map(s => `<li>${s}</li>`).join('');
+      document.getElementById('keep-list').innerHTML = data.ssk.keep.map(s => `<li>${s}</li>`).join('');
+
+      // Step 3: Business Data
+      document.getElementById('mock-revenue').innerText = data.businessData.revenue.toLocaleString();
+      document.getElementById('mock-profit').innerText = data.businessData.profit.toLocaleString();
+      document.getElementById('mock-cashflow').innerText = data.businessData.cashflow.toLocaleString();
+
+      // Step 5: 2026 Plan
+      document.getElementById('plan-2026-body').innerHTML = data.plan2026.map(p => `
+        <tr><td>${p.goal}</td><td>${p.priority}</td><td>${p.kpi}</td></tr>
+      `).join('');
+
+    }).getInitialData();
+  }
+
+  // Initial load
+  loadMockData();
+
+  // Intersection Observer to detect current step and update Help Sidebar
+  const sections = document.querySelectorAll('section');
+  const observerOptions = { threshold: 0.6 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const stepIndex = entry.target.id.replace('step', '');
+        if (stepIndex) updateHelp(stepIndex);
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+});
 </script>
