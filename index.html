@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <?!= include('styles'); ?>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="tesla-nav">
+      <div class="logo">YEARLY GOAL MASTER</div>
+      <div class="nav-links">
+        <a href="#step1">Review</a>
+        <a href="#step2">SSK</a>
+        <a href="#step3">Business</a>
+        <a href="#step5">2026 Plan</a>
+      </div>
+      <div class="nav-right">
+        <button id="infoBtn" class="icon-btn" title="Information">
+          <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Sections (Tesla Style) -->
+    <main id="app">
+      <section id="step1" class="hero-section">
+        <div class="overlay"></div>
+        <div class="content-wrapper">
+          <h1 class="animate-up">Đánh giá Công ty / Bộ phận</h1>
+          <p class="subtitle">Xem lại mục tiêu và đo lường kết quả thực tế</p>
+          
+          <div class="goal-grid animate-up-delay">
+            <!-- Data Cards will be injected here -->
+            <div class="goal-card glass">
+              <h3>Mục tiêu Năm</h3>
+              <div class="kpi-value">85%</div>
+              <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
+              <span class="status near">Gần đạt</span>
+            </div>
+          </div>
+
+          <div class="action-buttons animate-up-delay-2">
+            <button class="btn-primary">Cập nhật dữ liệu</button>
+            <button class="btn-outline">Chi tiết ưu tiên</button>
+          </div>
+        </div>
+        <div class="scroll-indicator">
+          <div class="mouse"></div>
+        </div>
+      </section>
+
+      <section id="step2" class="content-section">
+        <!-- Step 2 Content: Start-Stop-Keep -->
+      </section>
+    </main>
+
+    <!-- Information Sidebar -->
+    <aside id="infoSidebar" class="sidebar">
+      <div class="sidebar-header">
+        <h2>Hướng dẫn & Tra cứu</h2>
+        <button id="closeSidebar" class="close-btn">&times;</button>
+      </div>
+      <div class="sidebar-content">
+        <div id="helpContent">
+          <!-- Dynamic Help Content -->
+          <h3>Bước 1: Hướng dẫn Đánh giá</h3>
+          <ul class="help-list">
+            <li>Xem lại bảng mục tiêu đầu năm.</li>
+            <li>Xác định các ưu tiên then chốt.</li>
+            <li>Tính tỷ lệ % hoàn thành = Kết quả thực tế / Tiêu chí thành công.</li>
+            <li>Phân loại trạng thái (Hoàn thành/Không đạt/Gần đạt).</li>
+          </ul>
+        </div>
+        <hr>
+        <div class="old-data">
+          <h3>Dữ liệu cũ / Gợi ý</h3>
+          <p class="placeholder-text">Chưa có dữ liệu lịch sử.</p>
+        </div>
+      </div>
+    </aside>
+
+    <?!= include('scripts'); ?>
+  </body>
+</html>

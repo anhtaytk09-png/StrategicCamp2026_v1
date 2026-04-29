@@ -1,0 +1,45 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const infoBtn = document.getElementById('infoBtn');
+  const closeSidebar = document.getElementById('closeSidebar');
+  const infoSidebar = document.getElementById('infoSidebar');
+
+  // Toggle Information Sidebar
+  infoBtn.addEventListener('click', () => {
+    infoSidebar.classList.add('active');
+  });
+
+  closeSidebar.addEventListener('click', () => {
+    infoSidebar.classList.remove('active');
+  });
+
+  // Close sidebar on click outside
+  document.addEventListener('click', (e) => {
+    if (!infoSidebar.contains(e.target) && !infoBtn.contains(e.target) && infoSidebar.classList.contains('active')) {
+      infoSidebar.classList.remove('active');
+    }
+  });
+
+  // Handle Scroll Navigation background
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.tesla-nav');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(23, 26, 32, 0.8)';
+      nav.style.backdropFilter = 'blur(10px)';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+    }
+  });
+
+  // Function to update help content dynamically (called when switching steps)
+  window.updateHelp = function(stepIndex) {
+    google.script.run.withSuccessHandler(function(content) {
+      document.getElementById('helpContent').innerHTML = `<h3>Hướng dẫn Bước ${stepIndex}</h3><p style="margin-top:20px; color:#ccc; line-height:1.6;">${content}</p>`;
+    }).getHelpContent(stepIndex);
+  }
+});
+
+// Example: Trigger help update on some action
+// updateHelp(1);
+</script>
