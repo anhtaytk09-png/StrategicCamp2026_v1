@@ -30,19 +30,36 @@
           <h1 class="animate-up">Đánh giá Công ty / Bộ phận</h1>
           <p class="subtitle">Xem lại mục tiêu và đo lường kết quả thực tế</p>
           
-          <div class="goal-grid animate-up-delay">
-            <!-- Data Cards will be injected here -->
-            <div class="goal-card glass">
-              <h3>Mục tiêu Năm</h3>
-              <div class="kpi-value">85%</div>
-              <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
-              <span class="status near">Gần đạt</span>
-            </div>
+          <div class="evaluation-container animate-up-delay">
+            <table class="glass-table">
+              <thead>
+                <tr>
+                  <th>Mục tiêu/Ưu tiên</th>
+                  <th>Phụ trách</th>
+                  <th>Tiêu chí (KPI)</th>
+                  <th>Thực tế</th>
+                  <th>%</th>
+                  <th>Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody id="evaluation-body">
+                <!-- Data will be injected here -->
+                <tr class="glass-row">
+                  <td><input type="text" placeholder="Tên mục tiêu..." class="input-minimal"></td>
+                  <td><input type="text" placeholder="Người phụ trách" class="input-minimal"></td>
+                  <td><input type="number" placeholder="Số mục tiêu" class="input-minimal" oninput="calculateProgress(this)"></td>
+                  <td><input type="number" placeholder="Số thực tế" class="input-minimal" oninput="calculateProgress(this)"></td>
+                  <td class="percentage-cell">0%</td>
+                  <td><span class="status-badge pending">Chờ cập nhật</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn-add" onclick="addRow()">+ Thêm mục tiêu</button>
           </div>
 
           <div class="action-buttons animate-up-delay-2">
-            <button class="btn-primary">Cập nhật dữ liệu</button>
-            <button class="btn-outline">Chi tiết ưu tiên</button>
+            <button class="btn-primary" onclick="saveData()">Lưu Kế Hoạch</button>
+            <button class="btn-outline">Xuất Báo Cáo</button>
           </div>
         </div>
         <div class="scroll-indicator">

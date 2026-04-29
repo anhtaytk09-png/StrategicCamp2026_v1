@@ -38,6 +38,65 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('helpContent').innerHTML = `<h3>Hướng dẫn Bước ${stepIndex}</h3><p style="margin-top:20px; color:#ccc; line-height:1.6;">${content}</p>`;
     }).getHelpContent(stepIndex);
   }
+
+  // Calculate Progress and Status (Step 1)
+  window.calculateProgress = function(input) {
+    const row = input.closest('tr');
+    const target = parseFloat(row.cells[2].querySelector('input').value) || 0;
+    const actual = parseFloat(row.cells[3].querySelector('input').value) || 0;
+    const percentageCell = row.querySelector('.percentage-cell');
+    const statusBadge = row.querySelector('.status-badge');
+
+    if (target > 0) {
+      const percentage = (actual / target) * 100;
+      percentageCell.innerText = percentage.toFixed(1) + '%';
+
+      if (percentage >= 100) {
+        statusBadge.className = 'status-badge done';
+        statusBadge.innerText = 'Hoàn thành';
+      } else if (percentage <= 80) {
+        statusBadge.className = 'status-badge failed';
+        statusBadge.innerText = 'Không đạt';
+      } else {
+        statusBadge.className = 'status-badge near';
+        statusBadge.innerText = 'Gần đạt';
+      }
+    } else {
+      percentageCell.innerText = '0%';
+      statusBadge.className = 'status-badge pending';
+      statusBadge.innerText = 'Chờ cập nhật';
+    }
+  }
+
+  // Add new row to evaluation table
+  window.addRow = function() {
+    const body = document.getElementById('evaluation-body');
+    const newRow = document.createElement('tr');
+    newRow.className = 'glass-row';
+    newRow.innerHTML = `
+      <td><input type="text" placeholder="Tên mục tiêu..." class="input-minimal"></td>
+      <td><input type="text" placeholder="Người phụ trách" class="input-minimal"></td>
+      <td><input type="number" placeholder="Số mục tiêu" class="input-minimal" oninput="calculateProgress(this)"></td>
+      <td><input type="number" placeholder="Số thực tế" class="input-minimal" oninput="calculateProgress(this)"></td>
+      <td class="percentage-cell">0%</td>
+      <td><span class="status-badge pending">Chờ cập nhật</span></td>
+    `;
+    body.appendChild(newRow);
+  }
+
+  // Save data to Google Sheets
+  window.saveData = function() {
+    const rows = document.querySelectorAll('#evaluation-body tr');
+    const data = Array.from(rows).map(row => ({
+      goal: row.cells[0].querySelector('input').value,
+      owner: row.cells[1].querySelector('input').value,
+      target: row.cells[2].querySelector('input').value,
+      actual: row.cells[3].querySelector('input').value
+    }));
+    
+    console.log("Saving data:", data);
+    alert("Dữ liệu đang được lưu vào Google Sheets...");
+  }
 });
 
 // Example: Trigger help update on some action

@@ -268,4 +268,81 @@ h1 {
   0% { opacity: 1; transform: translateX(-50%) translateY(0); }
   100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
 }
+/* Evaluation Table */
+.evaluation-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.glass-table th {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.glass-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.input-minimal {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  color: white;
+  width: 100%;
+  padding: 5px 0;
+  font-family: var(--font-main);
+  transition: border-bottom 0.3s;
+}
+
+.input-minimal:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent-blue);
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.done { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+.status-badge.failed { background: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+.status-badge.near { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+.status-badge.pending { background: rgba(255, 255, 255, 0.1); color: #ccc; }
+
+.btn-add {
+  background: none;
+  border: 1px dashed var(--glass-border);
+  color: #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.btn-add:hover {
+  background: rgba(255,255,255,0.05);
+  color: white;
+}
 </style>
